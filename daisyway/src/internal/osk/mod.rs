@@ -3,7 +3,7 @@
 use std::future::Future;
 
 use anyhow::Result;
-use rand::Rng;
+use rand::RngExt;
 
 use crate::internal::daisyway::crypto::Key;
 

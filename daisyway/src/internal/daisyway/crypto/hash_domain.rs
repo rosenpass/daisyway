@@ -1,7 +1,5 @@
-use sha3::{
-    digest::{ExtendableOutput, Update, XofReader},
-    Shake256,
-};
+use sha3::digest::{ExtendableOutput, Update, XofReader};
+use shake::Shake256;
 use zerocopy::{FromBytes, FromZeros, Immutable, IntoBytes};
 
 use crate::internal::daisyway::crypto::Key;
