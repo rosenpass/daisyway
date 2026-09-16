@@ -6,8 +6,7 @@ ctx: ctx.scoped rec {
   inherit (nixpkgs.lib.sources) sourceByRegex cleanSourceWith;
 
   # TODO: This is really ugly – use flake-parts?
-  fenix = ctx.flake.inputs.fenix.packages.${ctx.system.name};
-  pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.fenix.overlays.default;
+  pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.rust-overlay.overlays.default;
 
   inherit (pkgs) mkShellNoCC;
   inherit (pkgs.testers) runNixOSTest;
@@ -51,7 +50,7 @@ ctx: ctx.scoped rec {
   packages.default = packages.daisyway;
 
   # TODO: This is out of sync with the main package
-  packages.daisywayToolchain = fenix.default.toolchain;
+  packages.daisywayToolchain = pkgs.rust-bin.fromRustupToolchainFile (workspace.path + "/rust-toolchain.toml");
 
   packages.daisyway = buildRustPackage {
     name = toml.package.name;
@@ -103,12 +102,13 @@ ctx: ctx.scoped rec {
 
   devShells.default = mkShellNoCC {
     packages = []
-      ++ [fenix.complete.toolchain]
+      ++ [packages.daisywayToolchain]
       ++ (with packages; [
         daisywayQkdSimulator
       ])
       ++ (with pkgs; [
         cargo-release
+        rust-analyzer
         rustfmt
       ]);
   };
@@ -116,7 +116,7 @@ ctx: ctx.scoped rec {
   testContext = ctx // {
     system = ctx.system // {
       # TODO: needs better structure
-      inherit packages devShells apps fenix pkgs;
+      inherit packages devShells apps pkgs;
     };
   };
 
