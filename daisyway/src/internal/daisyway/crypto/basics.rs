@@ -1,5 +1,5 @@
 use anyhow::{ensure, Result};
-use rand::Rng;
+use rand::RngExt;
 use zerocopy::{FromBytes, Immutable, IntoBytes};
 
 use super::hash_domain::HashDomain;
