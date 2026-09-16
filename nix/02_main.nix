@@ -8,7 +8,7 @@ ctx: ctx.scoped rec {
   # TODO: This is really ugly – use flake-parts?
   pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.rust-overlay.overlays.default;
 
-  inherit (pkgs) mkShellNoCC;
+  inherit (pkgs) mkShell;
   inherit (pkgs.testers) runNixOSTest;
   inherit (pkgs.stdenv) mkDerivation;
   inherit (pkgs.writers) writePython3Bin;
@@ -100,17 +100,19 @@ ctx: ctx.scoped rec {
     ${pkgs.dpkg}/bin/dpkg --build packageroot $out
   '');
 
-  devShells.default = mkShellNoCC {
-    packages = []
-      ++ [packages.daisywayToolchain]
-      ++ (with packages; [
-        daisywayQkdSimulator
-      ])
-      ++ (with pkgs; [
-        cargo-release
-        rust-analyzer
-        rustfmt
-      ]);
+  devShells.default = mkShell {
+    packages = [
+      # Rust toolchain as pinned in rust-toolchain.toml
+      # This includes cargo, rustc, cargo-clippy and rustfmt
+      packages.daisywayToolchain
+      packages.daisywayQkdSimulator
+
+      pkgs.cargo-msrv
+      pkgs.cargo-release
+      pkgs.rust-analyzer
+      pkgs.rustfmt
+      pkgs.prettier
+    ];
   };
 
   testContext = ctx // {
