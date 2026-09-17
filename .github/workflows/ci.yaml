@@ -27,7 +27,9 @@ jobs:
 
   nix-flake-check:
     name: Run Nix checks
-    needs: clippy-check
+    # Using this "needs" keyword decreases the computational resources if clippy-check fails.
+    # But it also increases CI runtime if clippy-check succeeds.
+    # needs: clippy-check
     runs-on:
       - ubuntu-latest
     steps:
