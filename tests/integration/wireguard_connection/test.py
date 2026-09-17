@@ -1,9 +1,10 @@
 import sys
 import json
 from types import SimpleNamespace
+from typing import Any
 
-def eprint(*a, **kw):
-    print(*a, **{"file": sys.stderr, **kw})
+def eprint(*args: Any, **kwargs: Any) -> None:
+    print(*args, file=sys.stderr, **kwargs)
 
 config = json.loads(configJson, object_hook=lambda d: SimpleNamespace(**d))
 eprint("Config: ", config, config.wireguard)
