@@ -7,6 +7,7 @@ on:
     # paths: 
     #   - '**/Cargo.toml'
     #   - '**/Cargo.lock'
+  pull_request:
 
 jobs:
   # This job fails because it uses rust-toolchain.toml.
@@ -23,3 +24,13 @@ jobs:
     steps:
     - uses: actions/checkout@v7
     - uses: EmbarkStudios/cargo-deny-action@v2
+
+  # docs: https://mozilla.github.io/cargo-vet/configuring-ci.html
+  cargo-vet:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+    - name: cargo-vet
+      run: nix develop --command cargo vet --locked
