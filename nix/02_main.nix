@@ -107,8 +107,10 @@ ctx: ctx.scoped rec {
       packages.daisywayToolchain
       packages.daisywayQkdSimulator
 
+      pkgs.cargo-deny
       pkgs.cargo-msrv
       pkgs.cargo-release
+      pkgs.cargo-audit
       pkgs.rust-analyzer
       pkgs.rustfmt
       pkgs.prettier
