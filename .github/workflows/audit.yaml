@@ -1,0 +1,35 @@
+name: Audit
+
+on:
+  schedule:
+    - cron: '45 4 * * MON'
+  push:
+    # paths: 
+    #   - '**/Cargo.toml'
+    #   - '**/Cargo.lock'
+
+jobs:
+  # This job fails because it uses rust-toolchain.toml.
+  # cargo-audit:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v7
+  #     - uses: rustsec/audit-check@v2.0.0
+  #       with:
+  #         token: ${{ secrets.GITHUB_TOKEN }}
+  
+  cargo-deny:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - uses: EmbarkStudios/cargo-deny-action@v2
+
+  # docs: https://mozilla.github.io/cargo-vet/configuring-ci.html
+  cargo-vet:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v7
+    - name: Install Nix
+      uses: cachix/install-nix-action@v31
+    - name: cargo-vet
+      run: nix develop --command cargo vet --locked
