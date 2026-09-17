@@ -51,7 +51,7 @@ remote_sae_id = "SAE_002"      # Identifier for the "SAE" intended for communica
 # If the ETSI014 API uses a self-signed certificate, the CA certificate can be provided
 #tls_cacert = "ca.crt"
 
-# The following two options allow to configure a TLS based client authentification
+# The following two options allow to configure a TLS based client authentication
 #tls_cert = "client.crt"
 #tls_key = "client.key"
 
@@ -60,7 +60,7 @@ remote_sae_id = "SAE_002"      # Identifier for the "SAE" intended for communica
 #danger_allow_insecure_no_server_name_certificates = true
 
 # The following two sections define how exchanged keys are used. They can be
-# stored in a file using the `outfile` secton or used directly in the WireGuard
+# stored in a file using the `outfile` section or used directly in the WireGuard
 # configuration using the `wireguard` section. The `outfile` section is optional
 # and is recommended only for testing. If `outfile` is defined, it's used,
 # otherwise the `wireguard` section is used.
@@ -85,7 +85,7 @@ nix flake check . --print-build-logs
 
 ### TLS and mTLS setup
 
-The Daisyway sotware supports also ETSI 014 APIs over HTTPS and even mTLS. To
+The Daisyway software supports also ETSI 014 APIs over HTTPS and even mTLS. To
 simulate and test such a setup, we provide a simple TLS setup using `openssl`.
 The following steps are required to set up the TLS environment:
 
@@ -104,7 +104,7 @@ openssl req -newkey rsa:4096 -keyout client.key -out client.csr -nodes -subj "/C
 openssl x509 -req -in client.csr -CA ca.crt -CAkey ca.key -CAcreateserial -out client.crt -days 365
 ```
 
-The QKD simulator and Daisypass can load those certificates. The first example uses only a self-signed certificate, the second example uses mTLS.
+The QKD simulator and Daisyway can load those certificates. The first example uses only a self-signed certificate, the second example uses mTLS.
 
 #### Self-signed certificate
 
@@ -174,4 +174,4 @@ cargo run --bin daisyway -- exchange --config config.toml
 
 ## Acknowledgments
 
-This project was developed by [Karolin Varner](https://github.com/koraa) ([Rosenpass e.V.](https://rosenpass.eu)) and [Paul Spooren](https://github.com/aparcar) ([Hochschule Nordhausen](http://hs-nordhausen.de)), maintained by [Ilka Schulz](https://github.com/ilka-schulz) (Rosenpass e.V.), partly funded by the European Commission and the BMFTR (Bundesministerium für Forschung, Technologie und Raumfahrt) - formally BMWF.
+This project was developed by [Karolin Varner](https://github.com/koraa) ([Rosenpass e.V.](https://rosenpass.eu)) and [Paul Spooren](https://github.com/aparcar) ([Hochschule Nordhausen](http://hs-nordhausen.de)), maintained by [Ilka Schulz](https://github.com/ilka-schulz) (Rosenpass e.V.), partly funded by the European Commission and the BMFTR (Bundesministerium für Forschung, Technologie und Raumfahrt) - formerly BMWF.

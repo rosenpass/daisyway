@@ -70,7 +70,7 @@ where
             .await
             .map_err(|e| anyhow!(e))
             .and_then(|_| ack.validate())
-            .context("Failed to receive rekey acknoledgement message")?;
+            .context("Failed to receive rekey acknowledgement message")?;
 
         Ok(derive_daisyway_key(&self.protocol_params, nonce, key))
     }

@@ -38,7 +38,7 @@ jobs:
       - name: Check
         run: nix flake check . --print-build-logs
 
-  nighly-builds:
+  nightly-builds:
     name: Nightly builds
     runs-on:
       - ubuntu-latest

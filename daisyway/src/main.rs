@@ -185,7 +185,7 @@ impl ManpageCommand {
             let stdin = proc
                 .stdin
                 .as_mut()
-                .context("Stdout missin from manpage command. This is a bug")
+                .context("Stdout missing from manpage command. This is a bug")
                 .unwrap();
             stdin.write_all(&buf).await?;
 
@@ -211,7 +211,7 @@ impl ManpageCommand {
             S::Exchange => cmd.find_subcommand("exchange"),
             S::Manpage => cmd.find_subcommand("manpage"),
             S::ExportManpages => cmd.find_subcommand("export-manpages"),
-            S::ShellCompletion => cmd.find_subcommand("shell-comletion"),
+            S::ShellCompletion => cmd.find_subcommand("shell-completion"),
             S::Help => cmd.find_subcommand("help"),
         }
     }
@@ -274,7 +274,7 @@ struct ExchangeCommand {
 impl ExchangeCommand {
     async fn run(&self, _cli: &Cli) -> Result<()> {
         info!(
-            "Starting DaisyWay ({}{}/{}) with config {:?}...",
+            "Starting Daisyway ({}{}/{}) with config {:?}...",
             build::SHORT_COMMIT,                          // The short commit hash
             if build::GIT_CLEAN { "" } else { "-dirty" }, // Append "-dirty" if the repo is dirty
             build::BRANCH,                                // The branch name

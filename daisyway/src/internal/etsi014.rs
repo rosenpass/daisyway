@@ -232,7 +232,7 @@ impl Etsi014Connection {
             };
 
             info!(
-                "Using client authentification with certificate {:?} and key {:?}",
+                "Using client authentication with certificate {:?} and key {:?}",
                 cert_path, key_path
             );
 

@@ -174,7 +174,7 @@ where
         let new_active_handle = match self.budding_connections.remove(&new_active_id) {
             None => {
                 log::warn!(
-                    "Received ouput key from non exitstend connection #{new_active_id}. \
+                    "Received output key from non existent connection #{new_active_id}. \
                     This is likely a bug! Ignoring."
                 );
                 return Ok(());
