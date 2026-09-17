@@ -7,7 +7,6 @@ on:
     # paths: 
     #   - '**/Cargo.toml'
     #   - '**/Cargo.lock'
-  pull_request:
 
 jobs:
   # This job fails because it uses rust-toolchain.toml.
