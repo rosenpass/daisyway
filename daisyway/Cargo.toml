@@ -6,6 +6,8 @@ homepage = "https://rosenpass.eu"
 description = "ETSI-014 adapter for WireGuard (Create WireGuard connections secured by quantum key distribution)"
 rust-version = "1.88.0"
 license = "MIT OR Apache-2.0"
+repository = "https://github.com/rosenpass/daisyway"
+readme = "README.md"
 
 [dependencies]
 reqwest = { version = "0.13", default-features = false, features = [
