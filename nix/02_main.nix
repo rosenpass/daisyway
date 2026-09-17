@@ -6,10 +6,9 @@ ctx: ctx.scoped rec {
   inherit (nixpkgs.lib.sources) sourceByRegex cleanSourceWith;
 
   # TODO: This is really ugly – use flake-parts?
-  fenix = ctx.flake.inputs.fenix.packages.${ctx.system.name};
-  pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.fenix.overlays.default;
+  pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.rust-overlay.overlays.default;
 
-  inherit (pkgs) mkShellNoCC;
+  inherit (pkgs) mkShell;
   inherit (pkgs.testers) runNixOSTest;
   inherit (pkgs.stdenv) mkDerivation;
   inherit (pkgs.writers) writePython3Bin;
@@ -51,7 +50,7 @@ ctx: ctx.scoped rec {
   packages.default = packages.daisyway;
 
   # TODO: This is out of sync with the main package
-  packages.daisywayToolchain = fenix.default.toolchain;
+  packages.daisywayToolchain = pkgs.rust-bin.fromRustupToolchainFile (workspace.path + "/rust-toolchain.toml");
 
   packages.daisyway = buildRustPackage {
     name = toml.package.name;
@@ -101,22 +100,25 @@ ctx: ctx.scoped rec {
     ${pkgs.dpkg}/bin/dpkg --build packageroot $out
   '');
 
-  devShells.default = mkShellNoCC {
-    packages = []
-      ++ [fenix.complete.toolchain]
-      ++ (with packages; [
-        daisywayQkdSimulator
-      ])
-      ++ (with pkgs; [
-        cargo-release
-        rustfmt
-      ]);
+  devShells.default = mkShell {
+    packages = [
+      # Rust toolchain as pinned in rust-toolchain.toml
+      # This includes cargo, rustc, cargo-clippy and rustfmt
+      packages.daisywayToolchain
+      packages.daisywayQkdSimulator
+
+      pkgs.cargo-msrv
+      pkgs.cargo-release
+      pkgs.rust-analyzer
+      pkgs.rustfmt
+      pkgs.prettier
+    ];
   };
 
   testContext = ctx // {
     system = ctx.system // {
       # TODO: needs better structure
-      inherit packages devShells apps fenix pkgs;
+      inherit packages devShells apps pkgs;
     };
   };
 
