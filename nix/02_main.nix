@@ -44,6 +44,7 @@ ctx.scoped rec {
   workspace.toml = readToml (workspace.path + "/Cargo.toml");
   workspace.src = sourceByRegex workspace.path [
     "^Cargo.(lock|toml)$"
+    "^README\.md$"
     "^daisyway$"
     "^daisyway/Cargo\.(toml)$"
     "^daisyway/build.rs$"
