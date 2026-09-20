@@ -15,6 +15,7 @@ outer_ctx: outer_ctx.scoped rec {
     packages = eachSupportedSystem (system: (setupSystem system).packages);
     apps = eachSupportedSystem (system: (setupSystem system).apps);
     checks = eachSupportedSystem (system: (setupSystem system).checks);
+    formatter = eachSupportedSystem (system: (setupSystem system).formatter);
   };
 
   setupSystem = (system_name: scoped rec {

@@ -4,6 +4,8 @@ ctx: ctx.scoped rec {
   inherit (ctx.flake.inputs) nixpkgs;
   inherit (nixpkgs.lib.fileset) toSource;
   inherit (nixpkgs.lib.sources) sourceByRegex cleanSourceWith;
+  inherit (ctx.flake.inputs) treefmt-nix;
+  inherit (ctx) flake;
 
   # TODO: This is really ugly – use flake-parts?
   pkgs = ctx.flake.inputs.nixpkgs.legacyPackages.${ctx.system.name}.extend ctx.flake.inputs.rust-overlay.overlays.default;
@@ -28,6 +30,7 @@ ctx: ctx.scoped rec {
   result.devShells = devShells;
   result.apps = apps;
   result.checks = checks;
+  result.formatter = formatter;
 
   apps = {};
 
@@ -126,6 +129,9 @@ ctx: ctx.scoped rec {
   };
 
   checks.integrationTestWireguardConnection = runNixOSTest ((import ../tests/integration/wireguard_connection/test.nix) testContext);
+  checks.formatting = (treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build.check flake.self;
+
+  formatter = (treefmt-nix.lib.evalModule pkgs ./treefmt.nix).config.build.wrapper;
 
   readToml = (file: fromTOML (readFile file));
 }
