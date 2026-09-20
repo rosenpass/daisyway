@@ -154,6 +154,15 @@ ctx.scoped rec {
       pkgs.cargo-vet
     ];
   };
+  # minimal devShell for running cargo-clippy efficiently
+  # (the default devShell is expensive to install)
+  devShells.cargo-clippy = mkShell {
+    packages = [
+      # Rust toolchain as pinned in rust-toolchain.toml
+      # This includes cargo, rustc, cargo-clippy and rustfmt
+      packages.daisywayToolchain
+    ];
+  };
 
   testContext = ctx // {
     system = ctx.system // {
