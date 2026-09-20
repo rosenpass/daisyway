@@ -20,7 +20,7 @@ jobs:
         #     experimental-features = nix-command flakes
         #     access-tokens = github.com=${{ secrets.GITHUB_TOKEN }}
       - name: Run Clippy
-        run: nix develop --command cargo clippy --all-targets --all-features
+        run: nix develop .#cargo-clippy --command cargo clippy --all-targets --all-features
 
   nix-flake-check:
     name: Nix Flake Checks

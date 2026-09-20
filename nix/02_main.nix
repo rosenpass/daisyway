@@ -131,8 +131,11 @@ ctx.scoped rec {
       # Rust toolchain as pinned in rust-toolchain.toml
       # This includes cargo, rustc, cargo-clippy and rustfmt
       packages.daisywayToolchain
+
+      # install the tool from `/simulator/Cargo.toml` by compiling it from source:
       packages.daisywayQkdSimulator
 
+      # various useful packages from nixpkgs:
       pkgs.cargo-audit
       pkgs.cargo-deny
       pkgs.cargo-msrv
@@ -141,6 +144,23 @@ ctx.scoped rec {
       pkgs.rust-analyzer
       pkgs.rustfmt
       pkgs.prettier
+    ];
+  };
+  # minimal devShell for running cargo-vet efficiently
+  # (the default devShell is expensive to install)
+  devShells.cargo-vet = mkShell {
+    packages = [
+      pkgs.cargo
+      pkgs.cargo-vet
+    ];
+  };
+  # minimal devShell for running cargo-clippy efficiently
+  # (the default devShell is expensive to install)
+  devShells.cargo-clippy = mkShell {
+    packages = [
+      # Rust toolchain as pinned in rust-toolchain.toml
+      # This includes cargo, rustc, cargo-clippy and rustfmt
+      packages.daisywayToolchain
     ];
   };
 
