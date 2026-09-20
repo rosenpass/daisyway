@@ -32,4 +32,4 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v31
       - name: cargo-vet
-        run: nix develop --command cargo vet --locked
+        run: nix develop .#cargo-vet --command cargo vet --locked
