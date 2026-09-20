@@ -1,6 +1,6 @@
 use std::{path::PathBuf, sync::Arc, time::Duration};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{Context, Result, bail};
 use log::info;
 use serde::{Deserialize, Serialize};
 use zerocopy::FromZeros;
@@ -104,16 +104,22 @@ impl Daisyway {
         let etsi_client = Arc::new(Etsi014Connection::from_config(&cfg.etsi014)?);
 
         let osk_handler = match (&cfg.wireguard.interface, &cfg.outfile) {
-            (None, None) => bail!("You need to specify either the wireguard.interface or outfile.path configuration option"),
-            (Some(_), Some(_)) => bail!("You can not specify both the wireguard.interface and outfile.path configuration options"),
+            (None, None) => bail!(
+                "You need to specify either the wireguard.interface or outfile.path configuration option"
+            ),
+            (Some(_), Some(_)) => bail!(
+                "You can not specify both the wireguard.interface and outfile.path configuration options"
+            ),
             (None, Some(OutfileConfig { path })) => {
                 info!("Using Outfile as key handler, storing key in {path:?}",);
                 start_deadman(OutfileOskHandler::new(path), rekey_interval)
-            },
+            }
             #[cfg(not(target_os = "linux"))]
             (Some(_), None) => {
-                bail!("Directly interfacing with WireGuard is only supported on Linux. Please use the outfile configuration option instead.");
-            },
+                bail!(
+                    "Directly interfacing with WireGuard is only supported on Linux. Please use the outfile configuration option instead."
+                );
+            }
             #[cfg(target_os = "linux")]
             (Some(interface), None) => {
                 let peer = &cfg.wireguard.remote_peer_id;
@@ -123,9 +129,9 @@ impl Daisyway {
                 start_deadman(
                     crate::internal::osk::WireGuardOskHandler::setup(peer, interface)
                         .context("Could start WireGuard key handler")?,
-                    rekey_interval
+                    rekey_interval,
                 )
-            },
+            }
         };
 
         let participant = DaisywayTcpParticipant::from_config(

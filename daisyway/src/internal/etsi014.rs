@@ -1,18 +1,18 @@
 use std::{path::PathBuf, sync::Arc};
 
-use anyhow::{ensure, Context, Result};
+use anyhow::{Context, Result, ensure};
 use base64ct::{Base64, Encoding};
 use log::{debug, info, warn};
 use reqwest::Client;
 use rustls::{
+    ClientConfig, DigitallySignedStruct, RootCertStore,
     client::{
-        danger::{HandshakeSignatureValid, ServerCertVerified, ServerCertVerifier},
         WebPkiServerVerifier,
+        danger::{HandshakeSignatureValid, ServerCertVerified, ServerCertVerifier},
     },
     pki_types::{CertificateDer, ServerName, UnixTime},
-    ClientConfig, DigitallySignedStruct, RootCertStore,
 };
-use rustls_pki_types::{pem::PemObject, PrivateKeyDer};
+use rustls_pki_types::{PrivateKeyDer, pem::PemObject};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use zerocopy::FromZeros;

@@ -1,7 +1,10 @@
-outer_ctx: outer_ctx.scoped rec {
+outer_ctx:
+outer_ctx.scoped rec {
   inherit (builtins) trace;
 
-  ctx = outer_ctx // { inherit config; };
+  ctx = outer_ctx // {
+    inherit config;
+  };
 
   inherit (ctx) scoped;
 
@@ -18,11 +21,17 @@ outer_ctx: outer_ctx.scoped rec {
     formatter = eachSupportedSystem (system: (setupSystem system).formatter);
   };
 
-  setupSystem = (system_name: scoped rec {
-    result = (import ./02_main.nix) (ctx // {
-      system.name = system_name;
-    });
-  });
+  setupSystem = (
+    system_name:
+    scoped rec {
+      result = (import ./02_main.nix) (
+        ctx
+        // {
+          system.name = system_name;
+        }
+      );
+    }
+  );
 
   config = {
     supportedSystems = allSystems;

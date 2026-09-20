@@ -4,8 +4,8 @@ use anyhow::Result;
 use tokio::sync::mpsc;
 
 use super::{
-    events::{ConnectionHandlerEvent, OskEvent},
     ConnectionId,
+    events::{ConnectionHandlerEvent, OskEvent},
 };
 use crate::internal::{
     daisyway::crypto::Key,

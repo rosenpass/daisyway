@@ -1,11 +1,11 @@
 use std::{sync::Arc, time::Duration};
 
-use anyhow::{anyhow, Context, Result};
+use anyhow::{Context, Result, anyhow};
 use log::debug;
 use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use zerocopy::{FromZeros, IntoBytes};
 
-use super::{derive_daisyway_key, DaisywayProtocolParameters, Key, RekeyReq};
+use super::{DaisywayProtocolParameters, Key, RekeyReq, derive_daisyway_key};
 use crate::internal::{daisyway::crypto::RekeyAck, etsi014::Etsi014Connection, osk::OskHandler};
 
 pub struct DaisywayServerProtocol<O, Stream>

@@ -10,16 +10,18 @@
     treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-
-  outputs = (inputs:
-    let scoped = (scope: scope.result);
-    in scoped rec {
+  outputs = (
+    inputs:
+    let
+      scoped = (scope: scope.result);
+    in
+    scoped rec {
       inherit (builtins) removeAttrs;
 
       result = (import ./nix/01_init.nix) {
         scoped = scoped;
         flake.self = inputs.self;
-        flake.inputs = removeAttrs inputs ["self"];
+        flake.inputs = removeAttrs inputs [ "self" ];
       };
     }
   );
