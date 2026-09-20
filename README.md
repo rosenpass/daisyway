@@ -5,7 +5,7 @@
 ![Build](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/build.yaml?label=build)
 ![Checks](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/check.yaml?label=checks)
 ![Audit](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/audit.yaml?label=audit)
-[![docs.rs](https://badges.islabtech.com/shields-io/docsrs/daisyway/latest)](https://docs.rs/rosenpass)
+[![docs.rs](https://badges.islabtech.com/shields-io/docsrs/daisyway/latest)](https://docs.rs/daisyway)
 
 <!-- no license badge because the badge provider can not handle dual lincensing: [![License](https://badges.islabtech.com/shields-io/github/license/rosenpass/daisyway)](https://github.com/rosenpass/rosenpass) -->
 
