@@ -73,23 +73,20 @@ ctx.scoped rec {
 
   # System packages to be installed on both hosts.
   # This is primarily daisyway itself and some tools for debugging
-  common.systemPackages =
-    [ ]
-    ++ (with packages; [
-      daisyway
-    ])
-    ++ (with pkgs; [
-      wireguard-tools
-      iproute2
-      nmap
-    ]);
+  common.systemPackages = [
+    # build from the source of this project:
+    packages.daisyway
+
+    # download from nixpkgs
+    pkgs.wireguard-tools
+    pkgs.iproute2
+    pkgs.nmap
+  ];
 
   # Ada also hosts the QKD simulator
-  ada.systemPackages =
-    [ ]
-    ++ (with packages; [
-      daisywayQkdSimulator
-    ]);
+  ada.systemPackages = [
+    packages.daisywayQkdSimulator # built from the source of this project
+  ];
 
   common.tcpPorts = [
     config.qkdSimulator.port
