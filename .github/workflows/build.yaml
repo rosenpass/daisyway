@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  pull_request: null
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  nightly-builds:
+    name: Nightly builds
+    runs-on:
+      - ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
+      - name: Nightly builds
+        run: |
+          mkdir artifacts
+          for f in $(nix build --print-build-logs --print-out-paths .#packages.x86_64-linux.daisyway-deb .#packages.x86_64-linux.daisyway-tar); do cp "$f" "artifacts/${f#*-}"; done
+          echo >&2
+          echo >&2 "Generated artifacts:"
+          find ./artifacts >&2
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v7
+        with:
+          name: nightly-build
+          path: artifacts/*

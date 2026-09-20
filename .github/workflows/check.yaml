@@ -1,4 +1,4 @@
-name: Quality Assurance & Package Deployments
+name: Checks
 
 on:
   pull_request: null
@@ -11,8 +11,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  clippy-check:
-    name: Run Clippy
+  clippy:
+    name: Clippy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -26,7 +26,7 @@ jobs:
         run: nix develop --command cargo clippy --all-targets --all-features
 
   nix-flake-check:
-    name: Run Nix checks
+    name: Nix Flake Checks
     # Using this "needs" keyword decreases the computational resources if clippy-check fails.
     # But it also increases CI runtime if clippy-check succeeds.
     # needs: clippy-check
@@ -37,23 +37,3 @@ jobs:
       - uses: cachix/install-nix-action@v31
       - name: Check
         run: nix flake check . --print-build-logs
-
-  nightly-builds:
-    name: Nightly builds
-    runs-on:
-      - ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: cachix/install-nix-action@v31
-      - name: Nightly builds
-        run: |
-          mkdir artifacts
-          for f in $(nix build --print-build-logs --print-out-paths .#packages.x86_64-linux.daisyway-deb .#packages.x86_64-linux.daisyway-tar); do cp "$f" "artifacts/${f#*-}"; done
-          echo >&2
-          echo >&2 "Generated artifacts:"
-          find ./artifacts >&2
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: nightly-build
-          path: artifacts/*
