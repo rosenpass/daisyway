@@ -10,7 +10,7 @@ concurrency:
 jobs:
   clippy:
     name: Clippy
-    runs-on: ubuntu-latest
+    runs-on: ubicloud-standard-2
     steps:
       - uses: actions/checkout@v7
       - name: Install Nix
@@ -28,7 +28,7 @@ jobs:
     # But it also increases CI runtime if clippy-check succeeds.
     # needs: clippy-check
     runs-on:
-      - ubuntu-latest
+      - ubicloud-standard-4
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31

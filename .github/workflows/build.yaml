@@ -14,7 +14,7 @@ jobs:
   nightly-builds:
     name: Nightly builds
     runs-on:
-      - ubuntu-latest
+      - ubicloud-standard-8
     steps:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
