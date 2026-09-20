@@ -2,7 +2,7 @@ use anyhow::Result;
 use base64ct::{Base64, Encoding};
 use zerocopy::FromZeros;
 
-use crate::internal::daisyway::crypto::{Key, KEY_LENGTH_B64};
+use crate::internal::daisyway::crypto::{KEY_LENGTH_B64, Key};
 
 pub type UuidBytes = [u8; 16];
 pub type ConnectionIdBytes = [u8; 64];

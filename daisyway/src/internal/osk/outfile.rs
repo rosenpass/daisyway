@@ -10,7 +10,7 @@ use base64ct::{Base64, Encoding};
 use log::{error, info};
 
 use super::{OskHandler, SetOskReason};
-use crate::internal::daisyway::crypto::{Key, KEY_LENGTH_B64};
+use crate::internal::daisyway::crypto::{KEY_LENGTH_B64, Key};
 
 #[derive(Debug)]
 pub struct OutfileOskHandler {

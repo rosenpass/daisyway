@@ -1,4 +1,5 @@
-ctx: ctx.scoped rec {
+ctx:
+ctx.scoped rec {
   # File imports ############################
 
   inherit (ctx) scoped;
@@ -50,26 +51,30 @@ ctx: ctx.scoped rec {
   # To avoid this extra complexity, we just manually merge the variables here.
   #
   # Producing the TOML file adds extra complexity; which is another reason we chose the explicit approach.
-  configureHost = (hostConfig: scoped rec {
-    dw_comm = common.daisywayConfig;
-    dw_host = hostConfig.daisywayConfig or {};
-    auto.etc."daisyway/baseline.toml".source = toml "daisyway-config" {
-      etsi014 = dw_comm.etsi014 // (dw_host.etsi014 or {});
-      peer = dw_comm.peer // (dw_host.peer or {});
-      wireguard = dw_comm.wireguard // (dw_host.wireguard or {});
-    };
+  configureHost = (
+    hostConfig:
+    scoped rec {
+      dw_comm = common.daisywayConfig;
+      dw_host = hostConfig.daisywayConfig or { };
+      auto.etc."daisyway/baseline.toml".source = toml "daisyway-config" {
+        etsi014 = dw_comm.etsi014 // (dw_host.etsi014 or { });
+        peer = dw_comm.peer // (dw_host.peer or { });
+        wireguard = dw_comm.wireguard // (dw_host.wireguard or { });
+      };
 
-    result.systemd.services = common.services // (hostConfig.services or {});
-    result.environment.etc = auto.etc // common.etc // (hostConfig.etc or {});
-    result.environment.systemPackages = common.systemPackages ++ (hostConfig.systemPackages or []);
+      result.systemd.services = common.services // (hostConfig.services or { });
+      result.environment.etc = auto.etc // common.etc // (hostConfig.etc or { });
+      result.environment.systemPackages = common.systemPackages ++ (hostConfig.systemPackages or [ ]);
 
-    result.networking.firewall.allowedTCPPorts = common.tcpPorts ++ (hostConfig.tcpPorts or []);
-    result.networking.firewall.allowedUDPPorts = common.udpPorts ++ (hostConfig.udpPorts or []);
-  });
+      result.networking.firewall.allowedTCPPorts = common.tcpPorts ++ (hostConfig.tcpPorts or [ ]);
+      result.networking.firewall.allowedUDPPorts = common.udpPorts ++ (hostConfig.udpPorts or [ ]);
+    }
+  );
 
   # System packages to be installed on both hosts.
   # This is primarily daisyway itself and some tools for debugging
-  common.systemPackages = []
+  common.systemPackages =
+    [ ]
     ++ (with packages; [
       daisyway
     ])
@@ -80,12 +85,16 @@ ctx: ctx.scoped rec {
     ]);
 
   # Ada also hosts the QKD simulator
-  ada.systemPackages = []
+  ada.systemPackages =
+    [ ]
     ++ (with packages; [
       daisywayQkdSimulator
     ]);
 
-  common.tcpPorts = [ config.qkdSimulator.port config.daisyway.port ];
+  common.tcpPorts = [
+    config.qkdSimulator.port
+    config.daisyway.port
+  ];
   common.udpPorts = [ config.wireguard.port ];
 
   # Ability to start the QKD simulator
@@ -104,7 +113,7 @@ ctx: ctx.scoped rec {
 
   # Daisyway configuration file
   common.daisywayConfig = {
-    peer = {};
+    peer = { };
 
     etsi014.url = "http://${config.qkdSimulator.host}:${toString config.qkdSimulator.port}";
     # TODO: Is this parameter required?
@@ -134,8 +143,11 @@ ctx: ctx.scoped rec {
 
   # Utility functions #######################
 
-  toml = (data: scoped rec {
-    formatter = pkgs.formats.toml {};
-    result = formatter.generate data;
-  });
+  toml = (
+    data:
+    scoped rec {
+      formatter = pkgs.formats.toml { };
+      result = formatter.generate data;
+    }
+  );
 }

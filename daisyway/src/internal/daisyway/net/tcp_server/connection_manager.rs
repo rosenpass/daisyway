@@ -5,10 +5,10 @@ use log::info;
 use tokio::{net::TcpListener, sync::mpsc};
 
 use super::{
+    ConnectionId, MAX_BUDDING_CONNECTIONS,
     abort_on_drop_handle::AbortOnDropHandle,
     events::{AcceptEvent, ConnectionHandlerEvent, ExitEvent, OskEvent, StreamEvent},
     fanout_connection_handler::FanoutConnectionHandler,
-    ConnectionId, MAX_BUDDING_CONNECTIONS,
 };
 use crate::internal::{
     daisyway::crypto::DaisywayProtocolParameters, etsi014::Etsi014Connection, osk::OskHandler,
@@ -129,7 +129,9 @@ where
         } else if self.budding_connections.remove(&ev.connection_id).is_some() {
             log::debug!("Budding connection #{conn_id} has exited.");
         } else {
-            log::warn!("Received exit notification for non-existent connection #{conn_id}. This is likely a bug!");
+            log::warn!(
+                "Received exit notification for non-existent connection #{conn_id}. This is likely a bug!"
+            );
         }
 
         Ok(())

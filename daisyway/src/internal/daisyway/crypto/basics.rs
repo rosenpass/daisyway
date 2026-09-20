@@ -1,4 +1,4 @@
-use anyhow::{ensure, Result};
+use anyhow::{Result, ensure};
 use rand::RngExt;
 use zerocopy::{FromBytes, Immutable, IntoBytes};
 

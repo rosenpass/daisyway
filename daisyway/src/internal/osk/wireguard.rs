@@ -3,7 +3,7 @@ use std::{
     sync::{Arc, Mutex},
 };
 
-use anyhow::{ensure, Context, Result};
+use anyhow::{Context, Result, ensure};
 use log::{error, info};
 #[cfg(target_os = "linux")]
 use wireguard_uapi::{DeviceInterface, WgSocket};

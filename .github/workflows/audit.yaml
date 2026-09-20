@@ -2,9 +2,9 @@ name: Audit
 
 on:
   schedule:
-    - cron: '45 4 * * MON'
+    - cron: "45 4 * * MON"
   push:
-    # paths: 
+    # paths:
     #   - '**/Cargo.toml'
     #   - '**/Cargo.lock'
 
@@ -17,19 +17,19 @@ jobs:
   #     - uses: rustsec/audit-check@v2.0.0
   #       with:
   #         token: ${{ secrets.GITHUB_TOKEN }}
-  
+
   cargo-deny:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
-    - uses: EmbarkStudios/cargo-deny-action@v2
+      - uses: actions/checkout@v7
+      - uses: EmbarkStudios/cargo-deny-action@v2
 
   # docs: https://mozilla.github.io/cargo-vet/configuring-ci.html
   cargo-vet:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
-    - name: Install Nix
-      uses: cachix/install-nix-action@v31
-    - name: cargo-vet
-      run: nix develop --command cargo vet --locked
+      - uses: actions/checkout@v7
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+      - name: cargo-vet
+        run: nix develop --command cargo vet --locked

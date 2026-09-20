@@ -4,9 +4,9 @@ use anyhow::Result;
 use tokio::{net::TcpStream, spawn, sync::mpsc, task::JoinHandle};
 
 use super::{
+    ConnectionId,
     events::{ConnectionHandlerEvent, ExitEvent},
     fanout_osk_handler::FanoutOskHandler,
-    ConnectionId,
 };
 use crate::internal::{
     daisyway::crypto::{DaisywayProtocolParameters, DaisywayServerProtocol},
@@ -59,8 +59,12 @@ impl FanoutConnectionHandler {
             .send(ConnectionHandlerEvent::Exit(ExitEvent { connection_id }))
             .await;
         if let Err(err) = res {
-            log::warn!("[SERVER] Failed to inform connection manager about exit of connection #{connection_id}: {err}");
-            log::debug!("[SERVER] Failed to inform connection manager about exit of connection #{connection_id} (full error message): {err:?}");
+            log::warn!(
+                "[SERVER] Failed to inform connection manager about exit of connection #{connection_id}: {err}"
+            );
+            log::debug!(
+                "[SERVER] Failed to inform connection manager about exit of connection #{connection_id} (full error message): {err:?}"
+            );
         }
     }
 

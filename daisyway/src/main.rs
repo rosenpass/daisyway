@@ -1,6 +1,6 @@
 use std::{io::stdout, path::PathBuf};
 
-use anyhow::{bail, ensure, Context, Result};
+use anyhow::{Context, Result, bail, ensure};
 use clap::{CommandFactory, Parser};
 use daisyway::{Daisyway, DaisywayConfig};
 use log::{debug, info};
@@ -22,8 +22,8 @@ enum LogLevel {
 
 impl From<LogLevel> for log::LevelFilter {
     fn from(value: LogLevel) -> Self {
-        use log::LevelFilter as T;
         use LogLevel as F;
+        use log::LevelFilter as T;
         match value {
             F::Nothing => T::Off,
             F::Error => T::Error,

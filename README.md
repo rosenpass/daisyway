@@ -77,10 +77,18 @@ self_public_key = "5+l6TWvUJr2jCCqqyeSwExPriW74khDQvompp+xHe4Q=" # Public key of
 
 ### Testing
 
-We are using nix-based tests. Run the nix checks to execute the tests:
+We are using Nix-based tests. Run the Nix checks to execute the tests:
 
 ```bash
 nix flake check . --print-build-logs
+```
+
+### Formatting
+
+The formatters are configured in the Nix flake. Simply invoke them with the following command:
+
+```bash
+nix fmt
 ```
 
 ### TLS and mTLS setup
@@ -108,7 +116,7 @@ The QKD simulator and Daisyway can load those certificates. The first example us
 
 #### Self-signed certificate
 
-* Start the ETSI014 API with a self-signed certificate:
+- Start the ETSI014 API with a self-signed certificate:
 
 ```bash
 cargo run --bin simulator -- --addr 127.0.0.1:12345 --cert-path server.crt --key-path server.key
@@ -130,7 +138,7 @@ danger_allow_insecure_no_server_name_certificates = true
 > The `danger_allow_insecure_no_server_name_certificates` is only required when
 > the server URL does not match the certificate.
 
-* Start the Daisyway daemons:
+- Start the Daisyway daemons:
 
 ```bash
 cp ca.crt example/ada/
@@ -140,7 +148,7 @@ cargo run --bin daisyway -- exchange --config config.toml
 
 #### Self-signed certificate with mTLS
 
-* Start the ETSI014 API with mTLS:
+- Start the ETSI014 API with mTLS:
 
 ```bash
 cargo run -- --addr 0.0.0.0:1234 --cert-path server.crt --key-path server.key --ca-path ca.crt
@@ -164,7 +172,7 @@ danger_allow_insecure_no_server_name_certificates = true
 > The `danger_allow_insecure_no_server_name_certificates` is only required when
 > the server URL does not match the certificate.
 
-* Start the Daisyway daemons:
+- Start the Daisyway daemons:
 
 ```bash
 cp ca.crt client.crt client.key example/ada/

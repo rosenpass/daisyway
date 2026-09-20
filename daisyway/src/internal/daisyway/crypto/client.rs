@@ -6,7 +6,7 @@ use tokio::io::{AsyncRead, AsyncReadExt, AsyncWrite, AsyncWriteExt};
 use uuid::Uuid;
 use zerocopy::{FromZeros, IntoBytes};
 
-use super::{derive_daisyway_key, DaisywayProtocolParameters, Key, RekeyReq};
+use super::{DaisywayProtocolParameters, Key, RekeyReq, derive_daisyway_key};
 use crate::internal::{daisyway::crypto::REKEY_ACK, etsi014::Etsi014Connection, osk::OskHandler};
 
 pub struct DaisywayClientProtocol<O, Stream>
