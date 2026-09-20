@@ -77,10 +77,18 @@ self_public_key = "5+l6TWvUJr2jCCqqyeSwExPriW74khDQvompp+xHe4Q=" # Public key of
 
 ### Testing
 
-We are using nix-based tests. Run the nix checks to execute the tests:
+We are using Nix-based tests. Run the Nix checks to execute the tests:
 
 ```bash
 nix flake check . --print-build-logs
+```
+
+### Formatting
+
+The formatters are configured in the Nix flake. Simply invoke them with the following command:
+
+```bash
+nix fmt
 ```
 
 ### TLS and mTLS setup
