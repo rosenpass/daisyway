@@ -9,32 +9,6 @@ use tokio::{self, io::AsyncWriteExt};
 
 shadow!(build);
 
-// TODO: PossibleValue inference is somehow broken if we use log::Level directly. Can we fix this?
-#[derive(Debug, Copy, Clone, PartialEq, Eq, PartialOrd, Ord, clap::ValueEnum)]
-enum LogLevel {
-    Nothing,
-    Error,
-    Warn,
-    Info,
-    Debug,
-    Trace,
-}
-
-impl From<LogLevel> for log::LevelFilter {
-    fn from(value: LogLevel) -> Self {
-        use LogLevel as F;
-        use log::LevelFilter as T;
-        match value {
-            F::Nothing => T::Off,
-            F::Error => T::Error,
-            F::Warn => T::Warn,
-            F::Info => T::Info,
-            F::Debug => T::Debug,
-            F::Trace => T::Trace,
-        }
-    }
-}
-
 #[derive(Debug, Parser)]
 #[command(author, about, version = build::CLAP_LONG_VERSION, long_about, arg_required_else_help = true)]
 struct Cli {
@@ -43,7 +17,7 @@ struct Cli {
 
     /// Lowest log level to show
     #[arg(long = "log-level", value_name = "LOG_LEVEL", group = "log-level")]
-    log_level: Option<LogLevel>,
+    log_level: Option<log::LevelFilter>,
 
     /// Show verbose log output – sets log level to "debug"
     #[arg(short, long, group = "log-level")]
