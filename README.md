@@ -84,21 +84,14 @@ self_public_key = "5+l6TWvUJr2jCCqqyeSwExPriW74khDQvompp+xHe4Q=" # Public key of
 
 ## Development
 
-### Testing
+Daisyway uses the [Nix build system](https://nix.dev/) which introduce simple to use commands, e.g.:
 
-We are using Nix-based tests. Run the Nix checks to execute the tests:
+- **testing:** `nix flake check --print-build-logs`
+- **formatting:** `nix fmt`
 
-```bash
-nix flake check . --print-build-logs
-```
+You can **build** this project like usual with `cargo build`. However, there is also a fully reproducible option `nix build`.
 
-### Formatting
-
-The formatters are configured in the Nix flake. Simply invoke them with the following command:
-
-```bash
-nix fmt
-```
+We recommend to install the "dev shell" with all **recommended development tools** (e.g. cargo/rustc/formatters/etc. pinned to an exact version) with `nix develop`. This will start a new shell environment where these tools are installed temporarily. This even includes daisyway's own [`simulator` tool](simulator/).
 
 ### TLS and mTLS setup
 
