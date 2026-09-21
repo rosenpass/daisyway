@@ -2,12 +2,11 @@
 
 [![GitHub Release](https://badges.islabtech.com/shields-io/github/v/release/rosenpass/daisyway?sort=semver&color=blue)](https://github.com/rosenpass/daisyway/releases/latest)
 [![crates.io](https://badges.islabtech.com/shields-io/crates/v/daisyway.svg?sort=semver&color=blue)](https://crates.io/crates/daisyway)
+![Apache2/MIT licensed](https://badges.islabtech.com/shields-io/badge/license-Apache2.0/MIT-blue.svg)
 ![Build](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/build.yaml?label=build)
 ![Checks](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/check.yaml?label=checks)
 ![Audit](https://badges.islabtech.com/shields-io/github/actions/workflow/status/rosenpass/daisyway/audit.yaml?label=audit)
 [![docs.rs](https://badges.islabtech.com/shields-io/docsrs/daisyway/latest)](https://docs.rs/daisyway)
-
-<!-- no license badge because the badge provider can not handle dual lincensing: [![License](https://badges.islabtech.com/shields-io/github/license/rosenpass/daisyway)](https://github.com/rosenpass/rosenpass) -->
 
 Enhancing the security of a WireGuard tunnel by using Quantum-Key-Distribution (QKD) as additional pre-shared keys.
 
