@@ -132,8 +132,15 @@ ctx.scoped rec {
       # This includes cargo, rustc, cargo-clippy and rustfmt
       packages.daisywayToolchain
 
-      # install the tool from `/simulator/Cargo.toml` by compiling it from source:
-      packages.daisywayQkdSimulator
+      # # install the tool from `/simulator/Cargo.toml` by compiling it from source:
+      # #
+      # # This is a very expensive operation and it has the following drawbacks:
+      # # 1. The `README.md` references `cargo run simulator`, so this is unnecessary
+      # # 2. The `README.md` asks to open three shells for the demo and each shell
+      # #    would require rebuilding `simulator` from source – frustrating users.
+      # # 3. Changes to `/simulator/src/` do not affect the `simulator` command once
+      # #    the devShell has been entered.
+      # packages.daisywayQkdSimulator
 
       # various useful packages from nixpkgs:
       pkgs.cargo-audit
