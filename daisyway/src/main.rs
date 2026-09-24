@@ -1,3 +1,5 @@
+#![doc = include_str!("../../README.md")]
+
 use std::{io::stdout, path::PathBuf};
 
 use anyhow::{Context, Result, bail, ensure};
