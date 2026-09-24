@@ -49,7 +49,7 @@ impl OutfileOskHandler {
         file.write_all(key.as_bytes())
             .unwrap_or_else(|_| panic!("Failed to write PSK to file {}", &self.path.display()));
 
-        println!("output-key {path:?} {why}");
+        log::info!("output-key {path:?} {why}");
 
         Ok(())
     }
