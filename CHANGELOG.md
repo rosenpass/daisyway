@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.2 (2026-10-15)
+
+### Fixes
+
+- fix include paths for to `README.md`
+
 ## v0.1.1 (2026-10-15)
 
 ### Fixes
