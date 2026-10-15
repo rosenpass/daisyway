@@ -47,10 +47,12 @@ ctx.scoped rec {
     "^README\.md$"
     "^daisyway$"
     "^daisyway/Cargo\.(toml)$"
+    "^daisyway/README\.md$"
     "^daisyway/build\.rs$"
     "^daisyway/src/?.*$"
     "^simulator$"
     "^simulator/Cargo\.(toml)$"
+    "^simulator/README\.md$"
     "^simulator/src/?.*$"
   ];
 
