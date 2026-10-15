@@ -56,6 +56,15 @@ ctx.scoped rec {
 
   toml = readToml (workspace.path + "/daisyway/Cargo.toml");
 
+  # read package attributes from /Cargo.toml or /daisyway/Cargo.toml
+  package = builtins.mapAttrs (
+    name: value:
+    if builtins.isAttrs value && (value.workspace or false) then
+      workspace.toml.workspace.package.${name}
+    else
+      value
+  ) toml.package;
+
   packages.default = packages.daisyway;
 
   # TODO: This is out of sync with the main package
@@ -64,14 +73,14 @@ ctx.scoped rec {
   );
 
   packages.daisyway = buildRustPackage {
-    name = toml.package.name;
-    version = toml.package.version;
+    name = package.name;
+    version = package.version;
     src = workspace.src;
     doCheck = true;
     cargoLock.lockFile = workspace.path + "/Cargo.lock";
     buildAndTestSubdir = "daisyway";
-    meta.description = toml.package.description;
-    meta.homepage = toml.package.description;
+    meta.description = package.description;
+    meta.homepage = package.description;
     meta.license = with pkgs.lib.licenses; [
       mit
       asl20
@@ -81,13 +90,13 @@ ctx.scoped rec {
 
   packages.daisywayQkdSimulator = buildRustPackage {
     name = "daisywayQkdSimulator";
-    version = toml.package.version;
+    version = package.version;
     src = workspace.src;
     doCheck = true;
     cargoLock.lockFile = workspace.path + "/Cargo.lock";
     buildAndTestSubdir = "simulator";
-    meta.description = toml.package.description;
-    meta.homepage = toml.package.description;
+    meta.description = package.description;
+    meta.homepage = package.description;
     meta.license = with pkgs.lib.licenses; [
       mit
       asl20
@@ -96,35 +105,30 @@ ctx.scoped rec {
   };
 
   packages.daisyway-tar = (
-    pkgs.runCommand
-      "${toml.package.name}-${toml.package.version}-dev-${git.revision}-${pkgs.system}.tar.zst"
-      { }
+    pkgs.runCommand "${package.name}-${package.version}-dev-${git.revision}-${pkgs.system}.tar.zst" { }
       ''
         ${pkgs.gnutar}/bin/tar -C ${packages.daisyway} -c ${packages.daisyway}/* | ${pkgs.zstd}/bin/zstd > $out
       ''
   );
 
   packages.daisyway-deb = (
-    pkgs.runCommand
-      "${toml.package.name}-${toml.package.version}-dev-${git.revision}-${pkgs.system}.deb"
-      { }
-      ''
-        mkdir -p packageroot/DEBIAN
+    pkgs.runCommand "${package.name}-${package.version}-dev-${git.revision}-${pkgs.system}.deb" { } ''
+      mkdir -p packageroot/DEBIAN
 
-        cat << EOF > packageroot/DEBIAN/control
-        Package: ${toml.package.name}
-        Version: ${toml.package.version}-dev-${git.revision}
-        Architecture: all
-        Maintainer: Karolin Varner <karo@rosenpass.eu>
-        Depends:
-        Description: ${toml.package.description}
-        EOF
+      cat << EOF > packageroot/DEBIAN/control
+      Package: ${package.name}
+      Version: ${package.version}-dev-${git.revision}
+      Architecture: all
+      Maintainer: Karolin Varner <karo@rosenpass.eu>
+      Depends:
+      Description: ${package.description}
+      EOF
 
 
-        mkdir -p packageroot/usr
-        cp -Ra ${packages.daisyway}/* packageroot/usr
-        ${pkgs.dpkg}/bin/dpkg --build packageroot $out
-      ''
+      mkdir -p packageroot/usr
+      cp -Ra ${packages.daisyway}/* packageroot/usr
+      ${pkgs.dpkg}/bin/dpkg --build packageroot $out
+    ''
   );
 
   devShells.default = mkShell {
