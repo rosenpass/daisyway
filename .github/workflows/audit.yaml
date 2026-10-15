@@ -2,7 +2,7 @@ name: Audit
 
 on:
   schedule:
-    - cron: "45 4 * * MON"
+    - cron: "45 4 * * *"
   push:
     # paths:
     #   - '**/Cargo.toml'
