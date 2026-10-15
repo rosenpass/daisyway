@@ -133,9 +133,6 @@ ctx.scoped rec {
       # This includes cargo, rustc, cargo-clippy and rustfmt
       packages.daisywayToolchain
 
-      # install the tool from `/simulator/Cargo.toml` by compiling it from source:
-      packages.daisywayQkdSimulator
-
       # various useful packages from nixpkgs:
       pkgs.cargo-audit
       pkgs.cargo-deny
