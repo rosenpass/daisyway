@@ -1,11 +1,13 @@
 [package]
 name = "simulator"
-version = "0.1.0"
 edition = "2024"
 publish = false
-rust-version = "1.89.0"
-license = "MIT OR Apache-2.0"
-repository = "https://github.com/rosenpass/daisyway"
+version.workspace = true
+homepage.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+readme.workspace = true
 
 [dependencies]
 anyhow = "1.0"
