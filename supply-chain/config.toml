@@ -81,7 +81,7 @@ version = "1.12.1"
 criteria = "safe-to-deploy"
 
 [[exemptions.cc]]
-version = "1.8.0"
+version = "1.9.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.cfg-if]]
@@ -125,7 +125,7 @@ version = "1.0.5"
 criteria = "safe-to-deploy"
 
 [[exemptions.combine]]
-version = "4.6.8"
+version = "4.6.9"
 criteria = "safe-to-deploy"
 
 [[exemptions.const-oid]]
@@ -165,15 +165,15 @@ version = "0.12.4"
 criteria = "safe-to-deploy"
 
 [[exemptions.defmt]]
-version = "1.1.1"
+version = "1.2.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.defmt-macros]]
-version = "1.1.1"
+version = "1.2.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.defmt-parser]]
-version = "1.0.0"
+version = "1.1.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.derive_builder]]
@@ -213,7 +213,7 @@ version = "1.0.3"
 criteria = "safe-to-deploy"
 
 [[exemptions.find-msvc-tools]]
-version = "0.1.14"
+version = "0.1.15"
 criteria = "safe-to-deploy"
 
 [[exemptions.fs_extra]]
@@ -397,7 +397,7 @@ version = "0.2.19"
 criteria = "safe-to-deploy"
 
 [[exemptions.libc]]
-version = "0.2.189"
+version = "0.2.191"
 criteria = "safe-to-deploy"
 
 [[exemptions.libgit2-sys]]
@@ -561,7 +561,7 @@ version = "0.2.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.rustls-webpki]]
-version = "0.103.15"
+version = "0.103.16"
 criteria = "safe-to-deploy"
 
 [[exemptions.rustversion]]
@@ -573,7 +573,7 @@ version = "1.0.6"
 criteria = "safe-to-deploy"
 
 [[exemptions.schannel]]
-version = "0.1.29"
+version = "0.1.30"
 criteria = "safe-to-deploy"
 
 [[exemptions.scopeguard]]
@@ -685,7 +685,7 @@ version = "1.13.3"
 criteria = "safe-to-deploy"
 
 [[exemptions.tokio]]
-version = "1.53.3"
+version = "1.54.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.tokio-macros]]
@@ -801,7 +801,7 @@ version = "1.1.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.webpki-root-certs]]
-version = "1.0.9"
+version = "1.0.10"
 criteria = "safe-to-deploy"
 
 [[exemptions.winapi-util]]

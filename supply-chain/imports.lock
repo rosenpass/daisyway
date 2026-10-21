@@ -82,12 +82,6 @@ crate is broadly used throughout the ecosystem and does not contain anything
 suspicious.
 """
 
-[[audits.bytecode-alliance.audits.libc]]
-who = "Alex Crichton <alex@alexcrichton.com>"
-criteria = "safe-to-deploy"
-delta = "0.2.189 -> 0.2.190"
-notes = "All in line with changes one would expect from `libc`"
-
 [[audits.bytecode-alliance.audits.percent-encoding]]
 who = "Alex Crichton <alex@alexcrichton.com>"
 criteria = "safe-to-deploy"
