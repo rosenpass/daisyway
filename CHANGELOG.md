@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3 (2026-10-21)
+
+### Fixes
+
+- upgrade Cargo dependencies (includes upgrading CA certificates)
+
 ## v0.1.2 (2026-10-15)
 
 ### Fixes
